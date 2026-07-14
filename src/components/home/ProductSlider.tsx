@@ -22,7 +22,7 @@ export default function ProductSlider({ products }: ProductSliderProps) {
   }
 
   return (
-    <div className="relative group product-slider-container px-[20px] lg:px-[40px]">
+    <div className="relative group/slider product-slider-container">
       <Swiper
         spaceBetween={30}
         navigation={{
@@ -31,17 +31,17 @@ export default function ProductSlider({ products }: ProductSliderProps) {
         }}
         modules={[Navigation]}
         breakpoints={{
-          // Mobile
+          // 0px: 2 items (matching original Owl Carousel: 0 → items: 2)
           0: {
             slidesPerView: 2,
-            spaceBetween: 15,
+            spaceBetween: 30,
           },
-          // Tablet
+          // 600px: 3 items (matching original Owl Carousel: 600 → items: 3)
           600: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 30,
           },
-          // Desktop
+          // 800px: 5 items (matching original Owl Carousel: 800 → items: 5)
           800: {
             slidesPerView: 5,
             spaceBetween: 30,
@@ -57,11 +57,11 @@ export default function ProductSlider({ products }: ProductSliderProps) {
       </Swiper>
 
       {/* Custom Navigation Arrows */}
-      <div className="product-swiper-button-prev absolute top-[40%] left-0 -translate-y-1/2 z-10 w-[35px] h-[35px] bg-white text-[#333] flex items-center justify-center rounded-full cursor-pointer shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-[#f8f9fa]">
-        <i className="fas fa-chevron-left text-[16px]"></i>
+      <div className="product-swiper-button-prev absolute top-[40%] -left-[10px] -translate-y-1/2 z-10 w-[40px] h-[40px] bg-white text-[#333] flex items-center justify-center rounded-full cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-300 hover:bg-[#000] hover:text-white [&.swiper-button-disabled]:opacity-50 [&.swiper-button-disabled]:pointer-events-none">
+        <i className="fas fa-chevron-left text-[18px]"></i>
       </div>
-      <div className="product-swiper-button-next absolute top-[40%] right-0 -translate-y-1/2 z-10 w-[35px] h-[35px] bg-white text-[#333] flex items-center justify-center rounded-full cursor-pointer shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-[#f8f9fa]">
-        <i className="fas fa-chevron-right text-[16px]"></i>
+      <div className="product-swiper-button-next absolute top-[40%] -right-[10px] -translate-y-1/2 z-10 w-[40px] h-[40px] bg-white text-[#333] flex items-center justify-center rounded-full cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-300 hover:bg-[#000] hover:text-white [&.swiper-button-disabled]:opacity-50 [&.swiper-button-disabled]:pointer-events-none">
+        <i className="fas fa-chevron-right text-[18px]"></i>
       </div>
     </div>
   );

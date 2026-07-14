@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Mobile body padding to make space for fixed bottom nav (matching original CSS) */
+@media (max-width: 1199px) {
+  body {
+    padding-bottom: 60px;
+  }
+}
+
+/* Fade-in animation for tab content */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease;
+}

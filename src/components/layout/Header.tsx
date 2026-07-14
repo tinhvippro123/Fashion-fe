@@ -6,6 +6,8 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true); 
+  const [cartItemCount, setCartItemCount] = useState(0); // Set to 0 to hide badge like in screenshot
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -16,25 +18,23 @@ export default function Header() {
     setExpandedMenus(prev => ({ ...prev, [menu]: !prev[menu] }));
   };
 
-  // Mock authentication state for UI demonstration
-  const isAuthenticated = true; 
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white py-[10px] lg:py-[17px]">
-        <div className="w-full lg:px-[85px] px-[15px] mx-auto flex items-center justify-between relative after:content-[''] after:absolute max-[1023px]:after:-bottom-[10px] lg:after:-bottom-[17px] lg:after:left-[85px] lg:after:right-[85px] after:left-[15px] after:right-[15px] after:h-[1px] after:bg-[#e1e1e1]">
+      <header className="sticky top-0 z-50 bg-white py-[17px]">
+        <div className="w-full min-[1200px]:px-[85px] px-[15px] mx-auto flex items-center justify-between relative after:content-[''] after:absolute after:bottom-[-17px] min-[1200px]:after:left-[85px] min-[1200px]:after:right-[85px] after:left-[15px] after:right-[15px] after:h-[1px] after:bg-[#e1e1e1]">
           
-          {/* Left: Desktop Navigation Menu */}
-          <nav className="hidden lg:flex items-center">
-            {/* NỮ Menu Item */}
-            <div className="group flex items-center">
-              <Link href="/danh-muc/nu" className="text-[12px] font-semibold text-[#333] hover:text-[#000] py-[10px] mr-[14px] uppercase tracking-[0.5px] transition-colors">
+          {/* DESKTOP NAVIGATION */}
+          <nav className="hidden lg:flex items-center h-full">
+            {/* NỮ Menu */}
+            <div className="group flex items-center h-full">
+              <Link href="/danh-muc/nu" className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative">
                 NỮ
               </Link>
               
-              {/* Mega Menu Dropdown */}
-              <div className="absolute left-[85px] right-[85px] w-auto top-[100%] mt-[17px] bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent">
-                <div className="w-[240px] shrink-0 pr-[40px] border-r border-[#eee] mr-[40px]">
+              {/* Mega Menu Dropdown NỮ */}
+              <div className="absolute left-[85px] right-[85px] top-full w-auto bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] hidden lg:flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent before:z-[1001]">
+                <div className="w-[250px] shrink-0 pr-[50px] border-r border-[#eee]">
                   <Link href="/danh-muc/hang-nu-moi-ve" className="block font-bold mb-3 text-[#ff0000] text-[14px] hover:text-[#000] uppercase transition-colors">
                     NEW ARRIVAL
                   </Link>
@@ -45,25 +45,38 @@ export default function Header() {
                     HOT ITEMS - SALE 50%
                   </Link>
                 </div>
-                <div className="flex-1 flex flex-wrap gap-[30px] pl-[40px] content-start">
+                <div className="flex-1 flex flex-wrap gap-[30px] pl-[50px] content-start">
                   <div className="w-[200px] min-w-[180px] mb-[30px]">
                     <Link href="#" className="block font-bold text-[#333] text-[14px] uppercase mb-[15px] hover:text-[#000] transition-colors">ÁO</Link>
                     <div className="flex flex-col space-y-2">
                       <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Áo sơ mi</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Áo thun</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Áo kiểu</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Áo len</Link>
+                    </div>
+                  </div>
+                  <div className="w-[200px] min-w-[180px] mb-[30px]">
+                    <Link href="#" className="block font-bold text-[#333] text-[14px] uppercase mb-[15px] hover:text-[#000] transition-colors">QUẦN</Link>
+                    <div className="flex flex-col space-y-2">
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Quần jeans</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Quần âu</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Quần khaki</Link>
+                      <Link href="#" className="text-[13px] text-[#6c757d] hover:text-[#000] transition-colors">Quần short</Link>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="group flex items-center">
-              <Link href="/danh-muc/nam" className="text-[12px] font-semibold text-[#333] hover:text-[#000] py-[10px] mr-[14px] uppercase tracking-[0.5px] transition-colors">
+            {/* NAM Menu */}
+            <div className="group flex items-center h-full">
+              <Link href="/danh-muc/nam" className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative">
                 NAM
               </Link>
 
               {/* Mega Menu Dropdown NAM */}
-              <div className="absolute left-[85px] right-[85px] w-auto top-[100%] mt-[17px] bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent">
-                <div className="w-[240px] shrink-0 pr-[40px] border-r border-[#eee] mr-[40px]">
+              <div className="absolute left-[85px] right-[85px] top-full w-auto bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] hidden lg:flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent before:z-[1001]">
+                <div className="w-[250px] shrink-0 pr-[50px] border-r border-[#eee]">
                   <Link href="/danh-muc/hang-nam-moi-ve" className="block font-bold mb-3 text-[#ff0000] text-[14px] hover:text-[#000] uppercase transition-colors">
                     NEW ARRIVAL
                   </Link>
@@ -74,7 +87,7 @@ export default function Header() {
                     HOT ITEMS - SALE 50%
                   </Link>
                 </div>
-                <div className="flex-1 flex flex-wrap gap-[30px] pl-[40px] content-start">
+                <div className="flex-1 flex flex-wrap gap-[30px] pl-[50px] content-start">
                   <div className="w-[200px] min-w-[180px] mb-[30px]">
                     <Link href="#" className="block font-bold text-[#333] text-[14px] uppercase mb-[15px] hover:text-[#000] transition-colors">ÁO</Link>
                     <div className="flex flex-col space-y-2">
@@ -97,7 +110,7 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="/sale" className="text-[12px] font-semibold text-[#ff0000] hover:text-[#ff0000] py-[10px] mr-[14px] uppercase tracking-[0.5px] transition-colors animate-pulse">
+            <Link href="/sale" className="text-[12px] font-semibold text-[#ff0000] hover:text-[#ff0000] py-[10px] mr-[14px] uppercase tracking-[0.5px] transition-colors">
               BIG SALE THÁNG 12
             </Link>
             <Link href="/collection" className="text-[12px] font-semibold text-[#333] hover:text-[#000] py-[10px] mr-[14px] uppercase tracking-[0.5px] transition-colors">
@@ -109,20 +122,18 @@ export default function Header() {
           </nav>
 
           {/* Left: Mobile Hamburger Button */}
-          <button onClick={toggleMobileMenu} className="block lg:hidden bg-transparent border-none text-[#333] text-[20px] cursor-pointer">
+          <button onClick={toggleMobileMenu} className="block lg:hidden bg-transparent border-none text-[#000] text-[20px] cursor-pointer">
             <i className="fas fa-bars"></i>
           </button>
 
-          {/* Center: Image Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 z-10 text-center">
-            <Link href="/">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/client/img/logo.png" alt="Logo" className="h-[40px] w-auto inline-block" />
-            </Link>
-          </div>
+          {/* Center: Logo - Absolutely Centered */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/client/img/logo.png" alt="Luxe Fashion" className="h-[40px] w-auto" />
+          </Link>
 
-          {/* Right: Search Box and Icons */}
-          <div className="flex items-center">
+          {/* Right: Search and User Actions */}
+          <div className="flex items-center gap-[20px] ml-auto">
             
             {/* Desktop Search Box */}
             <form className="hidden lg:flex items-center relative w-[250px] border border-[#e1e1e1] rounded px-[12px] py-[6px]">
@@ -139,13 +150,13 @@ export default function Header() {
             </form>
 
             {/* Contact Icon (Desktop Only) */}
-            <Link href="/contact" className="hidden lg:block text-[#333] text-[18px] ml-[20px] relative transition-colors" title="Liên hệ">
+            <Link href="/contact" className="hidden lg:block text-[#333] text-[18px] relative transition-colors" title="Liên hệ">
               <i className="fas fa-headset"></i>
             </Link>
 
             {/* User Icon & Dropdown (Desktop Only) */}
             {isAuthenticated ? (
-              <div className="hidden lg:block ml-[20px] relative">
+              <div className="hidden lg:block relative">
                 <button onClick={toggleUserMenu} className="bg-transparent border-none p-0 text-[#333] text-[18px] cursor-pointer transition-colors">
                   <i className="far fa-user"></i>
                 </button>
@@ -159,22 +170,29 @@ export default function Header() {
                     <li><Link href="/admin" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-cogs w-[20px] text-center mr-3"></i> Trang quản trị</Link></li>
                     <li><Link href="/account/profile" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-user w-[20px] text-center mr-3"></i> Thông tin tài khoản</Link></li>
                     <li><Link href="/account/orders" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-sync-alt w-[20px] text-center mr-3"></i> Quản lý đơn hàng</Link></li>
+                    <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-map-marker-alt w-[20px] text-center mr-3"></i> Sổ địa chỉ</Link></li>
+                    <li><Link href="/account/recently-viewed" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-glasses w-[20px] text-center mr-3"></i> Sản phẩm đã xem</Link></li>
+                    <li><Link href="/account/wishlist" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-heart w-[20px] text-center mr-3"></i> Sản phẩm yêu thích</Link></li>
+                    <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-headphones-alt w-[20px] text-center mr-3"></i> Hỏi đáp sản phẩm</Link></li>
+                    <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-hand-point-right w-[20px] text-center mr-3"></i> Hỗ trợ - LUXE</Link></li>
                     <li><button className="w-full text-left px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors bg-transparent border-none cursor-pointer"><i className="fas fa-sign-out-alt w-[20px] text-center mr-3"></i> Đăng xuất</button></li>
                   </ul>
                 </div>
               </div>
             ) : (
-              <Link href="/login" className="hidden lg:block text-[#333] text-[18px] ml-[20px] relative transition-colors">
+              <Link href="/login" className="hidden lg:block text-[#333] text-[18px] relative transition-colors">
                 <i className="far fa-user"></i>
               </Link>
             )}
 
             {/* Cart Icon (All devices) */}
-            <div className="text-[#333] text-[18px] ml-[20px] relative cursor-pointer" onClick={toggleCart}>
+            <div className="text-[#000] text-[18px] relative cursor-pointer" onClick={toggleCart}>
               <i className="fas fa-shopping-bag text-[24px]"></i>
-              <span className="absolute -top-[8px] -right-[10px] bg-[#333] text-white text-[10px] px-[5px] py-[2px] rounded-full leading-none flex items-center justify-center">
-                3
-              </span>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-[5px] -right-[10px] bg-[#ff0000] text-white text-[11px] font-bold px-[6px] py-[2px] rounded-full leading-none flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
             </div>
 
           </div>
@@ -277,7 +295,7 @@ export default function Header() {
       ></div>
 
       {/* Mini Cart Sidebar */}
-      <div className={`fixed top-0 bottom-0 right-0 w-[400px] max-w-full bg-white z-[1050] transform transition-transform duration-300 ease-in-out shadow-[-5px_0_15px_rgba(0,0,0,0.05)] flex flex-col ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 bottom-0 right-0 w-[400px] max-w-full max-[576px]:w-[85%] bg-white z-[1050] transform transition-transform duration-300 ease-in-out shadow-[-5px_0_15px_rgba(0,0,0,0.05)] flex flex-col ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-4 border-b border-[#e1e1e1] flex justify-between items-center bg-[#f8f9fa]">
           <h5 className="m-0 font-bold text-[16px] uppercase tracking-[1px]">Giỏ Hàng</h5>
           <span className="cursor-pointer text-[24px] leading-none" onClick={toggleCart}>&times;</span>

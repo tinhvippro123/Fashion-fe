@@ -16,8 +16,8 @@ export default function HomeSlider() {
   ];
 
   return (
-    <div className="w-full lg:px-[85px] px-[15px] mx-auto mb-[3rem]">
-      <div className="relative group">
+    <div className="w-full min-[1200px]:px-[85px] px-[15px] mx-auto mb-[3rem]">
+      <div className="relative group rounded-tl-[80px] rounded-br-[80px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.1)] w-full">
         <Swiper
           spaceBetween={0}
           centeredSlides={true}
@@ -33,35 +33,36 @@ export default function HomeSlider() {
             prevEl: '.swiper-button-prev-custom',
           }}
           modules={[Autoplay, Pagination, Navigation]}
-          className="w-full h-auto"
+          className="w-full h-auto aspect-[2.5/1] max-[768px]:aspect-auto max-[768px]:h-[35vh]"
         >
           {banners.map((banner) => (
             <SwiperSlide key={banner.id}>
-              <Link href={banner.url} className="block">
+              <Link href={banner.url} className="block w-full h-full">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={banner.image} alt={`Banner ${banner.id}`} className="block w-full h-auto object-cover" />
+                <img src={banner.image} alt={`Banner ${banner.id}`} className="block w-full h-full object-cover object-center" />
               </Link>
             </SwiperSlide>
           ))}
         </Swiper>
 
         {/* Custom Navigation Arrows */}
-        <div className="swiper-button-prev-custom absolute top-1/2 left-[10px] -translate-y-1/2 z-10 w-[40px] h-[40px] bg-white/50 text-[#333] flex items-center justify-center rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white">
-          <i className="fas fa-chevron-left text-[20px]"></i>
+        <div className="swiper-button-prev-custom absolute top-1/2 left-[20px] -translate-y-1/2 z-10 text-white/70 flex items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-white">
+          <i className="fas fa-chevron-left text-[30px] font-light"></i>
         </div>
-        <div className="swiper-button-next-custom absolute top-1/2 right-[10px] -translate-y-1/2 z-10 w-[40px] h-[40px] bg-white/50 text-[#333] flex items-center justify-center rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white">
-          <i className="fas fa-chevron-right text-[20px]"></i>
+        <div className="swiper-button-next-custom absolute top-1/2 right-[20px] -translate-y-1/2 z-10 text-white/70 flex items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-white">
+          <i className="fas fa-chevron-right text-[30px] font-light"></i>
         </div>
       </div>
       
       {/* Global overrides for Swiper pagination bullets */}
       <style jsx global>{`
         .swiper-pagination-bullet {
-          width: 30px;
-          height: 3px;
-          border-radius: 0;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
           background: #fff;
           opacity: 0.5;
+          margin: 0 5px !important;
         }
         .swiper-pagination-bullet-active {
           opacity: 1;

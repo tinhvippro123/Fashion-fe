@@ -19,6 +19,8 @@ export interface Product {
   name: string;
   basePrice: number;
   isNew: boolean;
+  isBestSeller?: boolean;
+  discountPercent?: number;
   productColors: ProductColor[];
 }
 
@@ -58,10 +60,22 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product Image Container */}
       <div className="relative overflow-hidden aspect-[2/3] bg-[#f8f9fa]">
         {product.isNew && (
-          <div className="absolute top-[10px] left-[10px] z-[5] bg-red-600 text-white text-[10px] font-bold px-[8px] py-[3px] uppercase tracking-[1px] rounded-sm">
+          <div className="absolute top-0 left-0 z-[5] bg-[#f7941d] text-white text-[11px] font-bold px-[10px] py-[4px] uppercase">
             NEW
           </div>
         )}
+
+        {product.isBestSeller && !product.isNew && (
+          <div className="absolute top-[10px] -left-[5px] z-[5] bg-[#b8232a] text-white text-[11px] font-medium px-[12px] py-[4px] rounded-r-[15px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-0 before:border-t-[5px] before:border-t-[#7a151b] before:border-l-[5px] before:border-l-transparent">
+            BEST SELLER
+          </div>
+        )}
+
+        {product.discountPercent && product.discountPercent > 0 ? (
+          <div className="absolute top-[10px] right-[10px] z-[5] bg-[#f7941d] text-white text-[12px] font-bold w-[35px] h-[35px] rounded-full flex items-center justify-center">
+            -{product.discountPercent}%
+          </div>
+        ) : null}
         
         <Link href={`/product/${product.id}`} className="block w-full h-full">
           {/* Main Image */}
@@ -111,17 +125,17 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Title */}
         <div className="mb-[5px]">
-          <Link href={`/product/${product.id}`} className="text-[#333] text-[14px] font-medium no-underline uppercase block hover:text-[#000]">
+          <Link href={`/product/${product.id}`} className="text-[#333] text-[14px] font-normal no-underline uppercase block hover:text-[#000] whitespace-nowrap overflow-hidden text-ellipsis">
             {product.name}
           </Link>
         </div>
 
         {/* Price & Bag Bottom Row */}
         <div className="relative flex justify-between items-center">
-          <div className="text-[#333] font-bold text-[15px]">
+          <div className="text-[#000] font-bold text-[16px]">
             {formatPrice(product.basePrice)}
           </div>
-          <button className="text-[#333] hover:text-[#000] transition-colors text-[18px] bg-transparent border-none cursor-pointer p-0">
+          <button className="bg-[#222] text-white w-[35px] h-[35px] flex items-center justify-center rounded-[4px] transition-colors duration-200 hover:bg-[#000] border-none cursor-pointer">
             <i className="fas fa-shopping-bag"></i>
           </button>
         </div>
