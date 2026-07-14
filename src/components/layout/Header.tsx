@@ -1,17 +1,17 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useCartStore } from '@/store/useCartStore';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(true); 
-  const [cartItemCount, setCartItemCount] = useState(0); // Set to 0 to hide badge like in screenshot
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
 
+  const { totalItems, toggleMiniCart } = useCartStore();
+
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
   const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
   
   const toggleSubMenu = (menu: string) => {
@@ -28,9 +28,9 @@ export default function Header() {
           <nav className="hidden lg:flex items-center h-full">
             {/* NỮ Menu */}
             <div className="group flex items-center h-full">
-              <Link href="/danh-muc/nu" className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative">
+              <span className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative cursor-pointer">
                 NỮ
-              </Link>
+              </span>
               
               {/* Mega Menu Dropdown NỮ */}
               <div className="absolute left-[85px] right-[85px] top-full w-auto bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] hidden lg:flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent before:z-[1001]">
@@ -70,9 +70,9 @@ export default function Header() {
 
             {/* NAM Menu */}
             <div className="group flex items-center h-full">
-              <Link href="/danh-muc/nam" className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative">
+              <span className="h-full flex items-center text-[12px] font-semibold text-[#333] group-hover:text-[#000] mr-[14px] uppercase tracking-[0.5px] transition-colors relative cursor-pointer">
                 NAM
-              </Link>
+              </span>
 
               {/* Mega Menu Dropdown NAM */}
               <div className="absolute left-[85px] right-[85px] top-full w-auto bg-white border border-[#f1f1f1] shadow-[0_10px_20px_rgba(0,0,0,0.05)] py-[30px] px-[40px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] hidden lg:flex before:content-[''] before:absolute before:-top-[20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent before:z-[1001]">
@@ -186,11 +186,11 @@ export default function Header() {
             )}
 
             {/* Cart Icon (All devices) */}
-            <div className="text-[#000] text-[18px] relative cursor-pointer" onClick={toggleCart}>
+            <div className="text-[#000] text-[18px] relative cursor-pointer" onClick={() => toggleMiniCart()}>
               <i className="fas fa-shopping-bag text-[24px]"></i>
-              {cartItemCount > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-[5px] -right-[10px] bg-[#ff0000] text-white text-[11px] font-bold px-[6px] py-[2px] rounded-full leading-none flex items-center justify-center">
-                  {cartItemCount}
+                  {totalItems}
                 </span>
               )}
             </div>
@@ -285,31 +285,6 @@ export default function Header() {
               </div>
             </li>
           </ul>
-        </div>
-      </div>
-
-      {/* Mini Cart Sidebar Overlay */}
-      <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 z-[1040] transition-opacity duration-300 ${isCartOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
-        onClick={toggleCart}
-      ></div>
-
-      {/* Mini Cart Sidebar */}
-      <div className={`fixed top-0 bottom-0 right-0 w-[400px] max-w-full max-[576px]:w-[85%] bg-white z-[1050] transform transition-transform duration-300 ease-in-out shadow-[-5px_0_15px_rgba(0,0,0,0.05)] flex flex-col ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="p-4 border-b border-[#e1e1e1] flex justify-between items-center bg-[#f8f9fa]">
-          <h5 className="m-0 font-bold text-[16px] uppercase tracking-[1px]">Giỏ Hàng</h5>
-          <span className="cursor-pointer text-[24px] leading-none" onClick={toggleCart}>&times;</span>
-        </div>
-        <div className="flex-1 overflow-y-auto p-4 flex items-center justify-center">
-          <p className="text-[#888] text-[14px]">Giỏ hàng đang trống</p>
-        </div>
-        <div className="p-4 border-t border-[#e1e1e1] bg-[#f8f9fa]">
-          <div className="flex justify-between mb-4 font-bold text-[16px]">
-            <span>Tổng cộng:</span>
-            <span>0₫</span>
-          </div>
-          <Link href="/cart" className="block w-full bg-[#000] text-white text-center py-3 rounded-md font-bold uppercase text-[14px] tracking-[1px] hover:bg-[#333] transition-colors mb-2">Xem Giỏ Hàng</Link>
-          <Link href="/checkout" className="block w-full bg-[#d9534f] text-white text-center py-3 rounded-md font-bold uppercase text-[14px] tracking-[1px] hover:bg-[#c9302c] transition-colors">Thanh Toán</Link>
         </div>
       </div>
 
