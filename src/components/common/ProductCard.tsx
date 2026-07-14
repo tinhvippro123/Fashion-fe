@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useCartStore } from '@/store/useCartStore';
+import { ProductDetail, ProductColor as FullProductColor, ProductVariant } from '@/types/product';
 
 interface ProductImage {
   imageUrl: string;
@@ -34,12 +36,14 @@ export default function ProductCard({ product }: ProductCardProps) {
       ? product.productColors[0].id
       : null
   );
+  const [isQuickSizeOpen, setIsQuickSizeOpen] = useState(false);
+  const { addItem, showSuccessModal } = useCartStore();
 
   const activeColor = product.productColors?.find((c) => c.id === activeColorId) || product.productColors?.[0];
 
   const getImageUrl = (url?: string) => {
     if (!url) return 'https://via.placeholder.com/300x450?text=No+Image';
-    return url.startsWith('http') ? url : `/uploads/${url}`;
+    return url.startsWith('http') || url.startsWith('/') ? url : `/uploads/${url}`;
   };
 
   const mainImage = activeColor && activeColor.images.length > 0 
@@ -107,7 +111,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.productColors?.map((pc) => (
               <div 
                 key={pc.id}
-                className="w-[18px] h-[18px] rounded-full cursor-pointer relative border border-transparent hover:border-gray-400 transition-colors"
+                className={`w-[18px] h-[18px] rounded-full cursor-pointer relative border transition-colors hover:border-gray-400 ${
+                  pc.color.hexCode === '#FFFFFF' ? 'border-[#ccc]' : 'border-transparent'
+                }`}
                 style={{ backgroundColor: pc.color.hexCode }}
                 title={pc.color.name}
                 onClick={() => setActiveColorId(pc.id)}
@@ -135,9 +141,39 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="text-[#000] font-bold text-[16px]">
             {formatPrice(product.basePrice)}
           </div>
-          <button className="bg-[#222] text-white w-[35px] h-[35px] flex items-center justify-center rounded-[4px] transition-colors duration-200 hover:bg-[#000] border-none cursor-pointer">
+          <button 
+            onClick={() => setIsQuickSizeOpen(!isQuickSizeOpen)}
+            className="bg-[#222] text-white w-[35px] h-[35px] flex items-center justify-center rounded-[4px] transition-colors duration-200 hover:bg-[#000] border-none cursor-pointer"
+          >
             <i className="fas fa-shopping-bag"></i>
           </button>
+          
+          {/* Quick Size Popup */}
+          {isQuickSizeOpen && (
+            <div className="absolute bottom-[45px] right-0 bg-white w-[60px] shadow-[0_5px_15px_rgba(0,0,0,0.15)] border border-[#eee] z-[100] rounded-[4px] animate-fadeInUp">
+              <ul className="list-none p-0 m-0">
+                {['S', 'M', 'L'].map((sizeName, index) => (
+                  <li 
+                    key={index}
+                    onClick={() => {
+                      // Fallback mock variant since ProductCard might not have full variants
+                      const mockVariant: ProductVariant = {
+                        id: product.id * 100 + index,
+                        size: { name: sizeName },
+                        stock: 10
+                      };
+                      addItem(product as unknown as ProductDetail, activeColor as unknown as FullProductColor, mockVariant, 1);
+                      setIsQuickSizeOpen(false);
+                      showSuccessModal();
+                    }}
+                    className="py-[8px] text-center text-[14px] font-semibold cursor-pointer border-b border-[#f5f5f5] last:border-none transition-colors hover:bg-black hover:text-white"
+                  >
+                    {sizeName}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
       </div>
