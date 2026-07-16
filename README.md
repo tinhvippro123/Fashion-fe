@@ -70,5 +70,5 @@ frontend/
 ## 🔧 Định Hướng Mở Rộng Tiếp Theo (Future Scaling)
 
 - **Tích hợp API Backend**: Sử dụng `axios` hoặc SWR/React-Query để gọi API thật từ Spring Boot, thay thế cho dữ liệu mẫu (mock data).
-- **Quản lý Trạng Thái Toàn Cục (State Management)**: Tích hợp `Zustand` hoặc `Redux Toolkit` để quản lý Giỏ hàng (Cart) và Phiên đăng nhập (User Session).
+- **Quản lý Trạng Thái Toàn Cục (State Management)**: Đã tích hợp `Zustand` để quản lý Giỏ hàng (Cart) và Phiên đăng nhập (User Session).
 - **Hệ thống Thiết kế (Design System)**: Có thể chuyển đổi các mã màu (như `#ff0000`, `#333`) thành biến màu của Tailwind trong `tailwind.config.ts` để làm giao diện sáng/tối (Dark Mode) dễ dàng.

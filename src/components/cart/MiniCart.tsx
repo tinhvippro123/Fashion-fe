@@ -1,11 +1,13 @@
 'use client';
 
 import { useCartStore } from '@/store/useCartStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import Link from 'next/link';
 import { formatPrice } from '@/utils/format';
 
 export default function MiniCart() {
   const { isMiniCartOpen, toggleMiniCart, items, totalItems, totalPrice, updateQuantity, removeItem } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <>
@@ -117,20 +119,32 @@ export default function MiniCart() {
 
           {items.length > 0 && (
             <div className="flex flex-col gap-[10px] mt-[15px]">
-              <Link 
-                href="/cart" 
-                onClick={() => toggleMiniCart(false)}
-                className="w-full text-center bg-[#222] text-white py-[12px] font-bold text-[14px] rounded-tl-[4px] rounded-br-[4px] hover:bg-black transition-colors uppercase"
-              >
-                Xem giỏ hàng
-              </Link>
-              <Link 
-                href="/login" 
-                onClick={() => toggleMiniCart(false)}
-                className="w-full text-center bg-white text-[#222] border border-[#222] py-[12px] font-bold text-[14px] rounded-tl-[4px] rounded-br-[4px] hover:bg-[#f9f9f9] transition-colors uppercase"
-              >
-                Đăng nhập
-              </Link>
+              {isAuthenticated ? (
+                <Link 
+                  href="/checkout" 
+                  onClick={() => toggleMiniCart(false)}
+                  className="w-full text-center bg-[#222] text-white py-[12px] font-bold text-[14px] rounded-tl-[4px] rounded-br-[4px] hover:bg-black transition-colors uppercase"
+                >
+                  Thanh toán
+                </Link>
+              ) : (
+                <>
+                  <Link 
+                    href="/cart" 
+                    onClick={() => toggleMiniCart(false)}
+                    className="w-full text-center bg-[#222] text-white py-[12px] font-bold text-[14px] rounded-tl-[4px] rounded-br-[4px] hover:bg-black transition-colors uppercase"
+                  >
+                    Xem giỏ hàng
+                  </Link>
+                  <Link 
+                    href="/login" 
+                    onClick={() => toggleMiniCart(false)}
+                    className="w-full text-center bg-white text-[#222] border border-[#222] py-[12px] font-bold text-[14px] rounded-tl-[4px] rounded-br-[4px] hover:bg-[#f9f9f9] transition-colors uppercase"
+                  >
+                    Đăng nhập
+                  </Link>
+                </>
+              )}
             </div>
           )}
         </div>

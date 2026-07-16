@@ -275,7 +275,7 @@ export default function CheckoutPage() {
                     <div className="pt-[20px]">
                       {items.map((item, index) => {
                         const hasDiscount = item.product.discountPercent && item.product.discountPercent > 0;
-                        const discountAmount = hasDiscount ? (item.product.basePrice * item.product.discountPercent) / 100 : 0;
+                        const discountAmount = hasDiscount ? (item.product.basePrice * (item.product.discountPercent || 0)) / 100 : 0;
                         const finalPrice = item.product.basePrice - discountAmount;
                         const lineTotal = finalPrice * item.quantity;
                         
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
                                     {hasDiscount && (
                                       <div className="flex flex-col">
                                         <span className="text-[14px] text-[#666]">-{formatPrice(discountAmount)}</span>
-                                        <span className="text-[13px] font-bold text-[#dc3545] mt-[2px]">( -{item.product.discountPercent}% )</span>
+                                        <span className="text-[13px] font-bold text-[#dc3545] mt-[2px]">( -{item.product.discountPercent || 0}% )</span>
                                       </div>
                                     )}
                                   </div>
@@ -323,7 +323,7 @@ export default function CheckoutPage() {
                               {hasDiscount ? (
                                 <div className="flex flex-col items-center">
                                   <span className="text-[14px] text-[#666]">-{formatPrice(discountAmount)}</span>
-                                  <span className="text-[13px] font-bold text-[#dc3545] mt-[2px]">( -{item.product.discountPercent}% )</span>
+                                  <span className="text-[13px] font-bold text-[#dc3545] mt-[2px]">( -{item.product.discountPercent || 0}% )</span>
                                 </div>
                               ) : (
                                 <span className="text-[#999]">-</span>

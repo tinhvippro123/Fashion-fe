@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useCartStore } from '@/store/useCartStore';
+import { useAuthStore } from '@/store/useAuthStore';
+import { toast } from 'react-toastify';
 import { ProductDetail, ProductColor as FullProductColor, ProductVariant } from '@/types/product';
 
 interface ProductImage {
@@ -28,16 +30,36 @@ export interface Product {
 
 interface ProductCardProps {
   product: Product;
+  isLiked?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, isLiked = false }: ProductCardProps) {
   const [activeColorId, setActiveColorId] = useState<number | null>(
     product.productColors && product.productColors.length > 0
       ? product.productColors[0].id
       : null
   );
   const [isQuickSizeOpen, setIsQuickSizeOpen] = useState(false);
+  const [liked, setLiked] = useState(isLiked);
   const { addItem, showSuccessModal } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
+
+  const handleToggleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      toast('Bạn cần đăng nhập để thực hiện chức năng này !', {
+        style: {
+          backgroundColor: '#359cb1',
+          color: '#fff',
+          borderRadius: '2px',
+          padding: '16px',
+        },
+        icon: <div className="bg-white text-[#359cb1] rounded-full w-[24px] h-[24px] flex items-center justify-center font-bold text-[14px] flex-shrink-0">i</div>,
+      });
+      return;
+    }
+    setLiked(!liked);
+  };
 
   const activeColor = product.productColors?.find((c) => c.id === activeColorId) || product.productColors?.[0];
 
@@ -61,25 +83,27 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group mb-[30px] relative transition-all duration-300">
       
+      {/* Badges */}
+      {product.isNew && (
+        <div className="absolute top-[0px] -left-[5px] z-[10] bg-[#f7941d] text-white text-[11px] font-bold px-[12px] py-[4px] rounded-tr-[15px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-0 before:border-t-[5px] before:border-t-[#961c1c] before:border-l-[5px] before:border-l-transparent uppercase tracking-wider">
+          NEW
+        </div>
+      )}
+
+      {product.isBestSeller && !product.isNew && (
+        <div className="absolute top-[10px] -left-[5px] z-[10] bg-[#b8232a] text-white text-[11px] font-medium px-[12px] py-[4px] rounded-r-[15px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-0 before:border-t-[5px] before:border-t-[#7a151b] before:border-l-[5px] before:border-l-transparent">
+          BEST SELLER
+        </div>
+      )}
+
+      {product.discountPercent && product.discountPercent > 0 ? (
+        <div className="absolute top-[10px] right-[10px] z-[10] bg-[#f7941d] text-white text-[12px] font-bold w-[35px] h-[35px] rounded-full flex items-center justify-center">
+          -{product.discountPercent}%
+        </div>
+      ) : null}
+
       {/* Product Image Container */}
       <div className="relative overflow-hidden aspect-[2/3] bg-[#f8f9fa]">
-        {product.isNew && (
-          <div className="absolute top-0 left-0 z-[5] bg-[#f7941d] text-white text-[11px] font-bold px-[10px] py-[4px] uppercase">
-            NEW
-          </div>
-        )}
-
-        {product.isBestSeller && !product.isNew && (
-          <div className="absolute top-[10px] -left-[5px] z-[5] bg-[#b8232a] text-white text-[11px] font-medium px-[12px] py-[4px] rounded-r-[15px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-0 before:border-t-[5px] before:border-t-[#7a151b] before:border-l-[5px] before:border-l-transparent">
-            BEST SELLER
-          </div>
-        )}
-
-        {product.discountPercent && product.discountPercent > 0 ? (
-          <div className="absolute top-[10px] right-[10px] z-[5] bg-[#f7941d] text-white text-[12px] font-bold w-[35px] h-[35px] rounded-full flex items-center justify-center">
-            -{product.discountPercent}%
-          </div>
-        ) : null}
         
         <Link href={`/product/${product.id}`} className="block w-full h-full">
           {/* Main Image */}
@@ -124,8 +148,11 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
             ))}
           </div>
-          <button className="text-[#999] hover:text-[#ff0000] transition-colors bg-transparent border-none cursor-pointer">
-            <i className="far fa-heart"></i>
+          <button 
+            onClick={handleToggleLike}
+            className={`transition-colors bg-transparent border-none cursor-pointer ${liked ? 'text-[#dc3545] hover:text-[#c82333]' : 'text-[#999] hover:text-[#ff0000]'}`}
+          >
+            <i className={liked ? "fas fa-heart" : "far fa-heart"}></i>
           </button>
         </div>
 

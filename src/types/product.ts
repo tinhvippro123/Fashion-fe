@@ -16,6 +16,7 @@ export interface ProductColor {
 export interface ProductVariant {
   id: number;
   size: {
+    id?: number;
     name: string;
   };
   stock: number;
@@ -25,6 +26,7 @@ export interface ProductDetail {
   id: number;
   name: string;
   basePrice: number;
+  discountPercent?: number;
   description: string;
   category: {
     name: string;
@@ -89,7 +91,8 @@ export const mockProductDetail: ProductDetail = {
         { id: 7, size: { id: 1, name: "S" }, stock: 10 },
         { id: 8, size: { id: 2, name: "M" }, stock: 20 },
         { id: 9, size: { id: 3, name: "L" }, stock: 15 },
-      ]
+      ],
+      images: []
     },
     {
       id: 4,
@@ -99,7 +102,8 @@ export const mockProductDetail: ProductDetail = {
         { id: 10, size: { id: 1, name: "S" }, stock: 12 },
         { id: 11, size: { id: 2, name: "M" }, stock: 18 },
         { id: 12, size: { id: 3, name: "L" }, stock: 5 },
-      ]
+      ],
+      images: []
     }
   ]
 };

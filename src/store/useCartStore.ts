@@ -17,7 +17,7 @@ export const useCartStore = create<CartState>()(
           (item) => item.id === `${product.id}-${color.id}-${variant.id}`
         );
 
-        let newItems = [...items];
+        const newItems = [...items];
         if (existingItemIndex >= 0) {
           // If item already exists, increase quantity
           const existingItem = newItems[existingItemIndex];

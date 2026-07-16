@@ -5,6 +5,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MiniCart from "@/components/cart/MiniCart";
 import SuccessModal from "@/components/cart/SuccessModal";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -31,6 +33,7 @@ export default function RootLayout({
         <Footer />
         <MiniCart />
         <SuccessModal />
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop closeOnClick pauseOnHover theme="colored" />
       </body>
     </html>
   );

@@ -1,8 +1,19 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const register = useAuthStore(state => state.register);
+
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [provinces, setProvinces] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
@@ -54,12 +65,29 @@ export default function RegisterPage() {
     }
   }, [selectedDistrict, districts]);
 
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Mật khẩu không khớp!");
+      return;
+    }
+    
+    setTimeout(() => {
+      register({
+        name: `${lastName} ${firstName}`.trim(),
+        email: email,
+        phone: phone
+      });
+      router.push('/');
+    }, 500);
+  };
+
   return (
     <div className="container-luxe w-full px-[15px] min-[1200px]:px-[85px] mx-auto mt-[40px] mb-[30px]">
       <div className="max-w-[1170px] mx-auto w-full">
         <h2 className="text-[24px] font-semibold text-[#221f20] text-center mb-[40px] font-['Montserrat',sans-serif] uppercase">Đăng ký</h2>
         
-        <form action="#" method="post" onSubmit={(e) => e.preventDefault()}>
+        <form action="#" method="post" onSubmit={handleRegister}>
           <div className="flex flex-col lg:flex-row -mx-[15px]">
             
             {/* Left Col: Customer Info */}
@@ -69,22 +97,22 @@ export default function RegisterPage() {
               <div className="flex flex-col sm:flex-row gap-[20px] mb-[20px]">
                 <div className="w-full sm:w-1/2">
                   <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Họ:<span className="text-[#ff0000]">*</span></label>
-                  <input type="text" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Họ..." required />
+                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Họ..." required />
                 </div>
                 <div className="w-full sm:w-1/2">
                   <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Tên:<span className="text-[#ff0000]">*</span></label>
-                  <input type="text" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Tên..." required />
+                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Tên..." required />
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-[20px] mb-[20px]">
                 <div className="w-full sm:w-1/2">
                   <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Email:<span className="text-[#ff0000]">*</span></label>
-                  <input type="email" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Email..." required />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Email..." required />
                 </div>
                 <div className="w-full sm:w-1/2">
                   <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Điện thoại:<span className="text-[#ff0000]">*</span></label>
-                  <input type="text" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Điện thoại..." required />
+                  <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Điện thoại..." required />
                 </div>
               </div>
 
@@ -170,12 +198,12 @@ export default function RegisterPage() {
               
               <div className="mb-[20px]">
                 <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Mật khẩu:<span className="text-[#ff0000]">*</span></label>
-                <input type="password" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Mật khẩu..." required />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Mật khẩu..." required />
               </div>
 
               <div className="mb-[20px]">
                 <label className="block text-[14px] text-[#6c6d70] mb-[8px] font-['Montserrat',sans-serif]">Nhập lại mật khẩu:<span className="text-[#ff0000]">*</span></label>
-                <input type="password" className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Nhập lại mật khẩu..." required />
+                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full h-[50px] px-[15px] border border-[#e1e1e1] rounded-[8px] text-[14px] text-[#6c6d70] outline-none focus:border-[#222] placeholder-[#a3a3a3]" placeholder="Nhập lại mật khẩu..." required />
               </div>
 
               <div className="mb-[20px]">

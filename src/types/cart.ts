@@ -17,5 +17,7 @@ export interface CartState {
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   toggleMiniCart: (isOpen?: boolean) => void;
+  showSuccessModal: () => void;
   clearCart: () => void;
+  isSuccessModalOpen?: boolean;
 }

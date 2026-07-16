@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ProductDetail, ProductColor } from '@/types/product';
 import SizeGuideModal from './SizeGuideModal';
 import { useCartStore } from '@/store/useCartStore';
+import { useAuthStore } from '@/store/useAuthStore';
+import { toast } from 'react-toastify';
 
 interface ProductInfoProps {
   product: ProductDetail;
@@ -17,9 +19,28 @@ export default function ProductInfo({ product, selectedColor, onColorChange }: P
   const [quantity, setQuantity] = useState<number>(1);
   const [sizeError, setSizeError] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   const { addItem, showSuccessModal } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
   const router = useRouter();
+
+  const handleToggleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      toast('Bạn cần đăng nhập để thực hiện chức năng này !', {
+        style: {
+          backgroundColor: '#359cb1',
+          color: '#fff',
+          borderRadius: '2px',
+          padding: '16px',
+        },
+        icon: <div className="bg-white text-[#359cb1] rounded-full w-[24px] h-[24px] flex items-center justify-center font-bold text-[14px] flex-shrink-0">i</div>,
+      });
+      return;
+    }
+    setLiked(!liked);
+  };
 
   const handleQtyChange = (delta: number) => {
     setQuantity((prev) => Math.max(1, prev + delta));
@@ -213,9 +234,10 @@ export default function ProductInfo({ product, selectedColor, onColorChange }: P
           MUA HÀNG
         </button>
         <button 
-          className="w-[50px] h-[50px] flex-shrink-0 bg-white text-[#222] border border-[#222] rounded-tl-[16px] rounded-br-[16px] flex items-center justify-center hover:bg-[#f9f9f9] transition-all"
+          onClick={handleToggleLike}
+          className={`w-[50px] h-[50px] flex-shrink-0 bg-white border border-[#222] rounded-tl-[16px] rounded-br-[16px] flex items-center justify-center transition-all ${liked ? 'text-[#dc3545] border-[#dc3545] hover:bg-[#ffe6e6]' : 'text-[#222] hover:bg-[#f9f9f9]'}`}
         >
-          <i className="far fa-heart text-[18px]"></i>
+          <i className={liked ? "fas fa-heart text-[18px]" : "far fa-heart text-[18px]"}></i>
         </button>
       </div>
 

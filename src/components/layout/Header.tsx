@@ -2,11 +2,12 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCartStore } from '@/store/useCartStore';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(true); 
+  const { isAuthenticated, user, logout } = useAuthStore();
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
 
   const { totalItems, toggleMiniCart } = useCartStore();
@@ -21,7 +22,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white py-[17px]">
+      <header className="sticky top-0 z-[1020] bg-white py-[17px] w-full" style={{ position: 'sticky', WebkitPosition: 'sticky' } as React.CSSProperties}>
         <div className="w-full min-[1200px]:px-[85px] px-[15px] mx-auto flex items-center justify-between relative after:content-[''] after:absolute after:bottom-[-17px] min-[1200px]:after:left-[85px] min-[1200px]:after:right-[85px] after:left-[15px] after:right-[15px] after:h-[1px] after:bg-[#e1e1e1]">
           
           {/* DESKTOP NAVIGATION */}
@@ -127,9 +128,9 @@ export default function Header() {
           </button>
 
           {/* Center: Logo - Absolutely Centered */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-center" style={{ top: '50%', transform: 'translate(-50%, -50%)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/client/img/logo.png" alt="Luxe Fashion" className="h-[40px] w-auto" />
+            <img src="/client/img/logo.png" alt="Luxe Fashion" className="h-[40px] w-auto block mx-auto" />
           </Link>
 
           {/* Right: Search and User Actions */}
@@ -164,10 +165,12 @@ export default function Header() {
                 {/* User Dropdown Menu */}
                 <div className={`absolute top-full right-0 w-[250px] bg-white border border-[#e1e1e1] rounded shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-[1050] mt-[10px] transition-all duration-200 ${isUserMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                   <div className="p-3 border-b border-[#eee] bg-[#f8f9fa] rounded-t font-semibold text-[14px]">
-                    Xin chào, <b className="font-bold">User</b>
+                    Xin chào, <b className="font-bold">{user?.name}</b>
                   </div>
                   <ul className="list-none p-0 m-0">
-                    <li><Link href="/admin" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-cogs w-[20px] text-center mr-3"></i> Trang quản trị</Link></li>
+                    {user?.isAdmin && (
+                      <li><Link href="/admin" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-cogs w-[20px] text-center mr-3"></i> Trang quản trị</Link></li>
+                    )}
                     <li><Link href="/account/profile" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-user w-[20px] text-center mr-3"></i> Thông tin tài khoản</Link></li>
                     <li><Link href="/account/orders" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-sync-alt w-[20px] text-center mr-3"></i> Quản lý đơn hàng</Link></li>
                     <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-map-marker-alt w-[20px] text-center mr-3"></i> Sổ địa chỉ</Link></li>
@@ -175,7 +178,7 @@ export default function Header() {
                     <li><Link href="/account/wishlist" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-heart w-[20px] text-center mr-3"></i> Sản phẩm yêu thích</Link></li>
                     <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-headphones-alt w-[20px] text-center mr-3"></i> Hỏi đáp sản phẩm</Link></li>
                     <li><Link href="#" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-hand-point-right w-[20px] text-center mr-3"></i> Hỗ trợ - LUXE</Link></li>
-                    <li><button className="w-full text-left px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors bg-transparent border-none cursor-pointer"><i className="fas fa-sign-out-alt w-[20px] text-center mr-3"></i> Đăng xuất</button></li>
+                    <li><button onClick={() => { logout(); setIsUserMenuOpen(false); }} className="w-full text-left px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors bg-transparent border-none cursor-pointer"><i className="fas fa-sign-out-alt w-[20px] text-center mr-3"></i> Đăng xuất</button></li>
                   </ul>
                 </div>
               </div>
