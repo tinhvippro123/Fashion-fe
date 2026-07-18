@@ -169,7 +169,7 @@ export default function Header() {
                   </div>
                   <ul className="list-none p-0 m-0">
                     {user?.isAdmin && (
-                      <li><Link href="/admin" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-cogs w-[20px] text-center mr-3"></i> Trang quản trị</Link></li>
+                      <li><a href="http://localhost:3001" target="_blank" rel="noopener noreferrer" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-cogs w-[20px] text-center mr-3"></i> Trang quản trị</a></li>
                     )}
                     <li><Link href="/account/profile" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="far fa-user w-[20px] text-center mr-3"></i> Thông tin tài khoản</Link></li>
                     <li><Link href="/account/orders" className="block px-4 py-[10px] text-[14px] text-[#333] hover:bg-[#f8f9fa] transition-colors border-b border-[#f5f5f5]"><i className="fas fa-sync-alt w-[20px] text-center mr-3"></i> Quản lý đơn hàng</Link></li>
