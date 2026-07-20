@@ -29,22 +29,37 @@ export default function OrderSuccessPage() {
         <div className="max-w-[800px] mx-auto px-[20px] md:px-[40px]">
           {/* Progress Bar */}
           <div className="flex justify-between relative mb-[40px] md:mb-[50px] mt-[20px] md:mt-[30px]">
-            {/* Background Line */}
-            <div className="absolute top-[5px] md:top-[7px] left-[50px] right-[50px] h-[2px] bg-[#e0e0e0] z-[1]"></div>
-            {/* Active Progress Line */}
-            <div className="absolute top-[5px] md:top-[7px] left-[50px] right-[50px] h-[2px] bg-[#222] z-[1]"></div>
+            {/* Background Line (Gray) */}
+            <div className="absolute top-[5px] md:top-[7px] left-[40px] right-[40px] h-[3px] bg-[#e1e1e1] z-[1]"></div>
             
-            <div className="relative z-[2] text-center w-[100px]">
+            {/* Active Progress Line (Black) - Full width for success page */}
+            <div className="absolute top-[5px] md:top-[7px] left-[40px] right-[40px] h-[3px] bg-[#222] z-[1]"></div>
+            
+            {/* Step 1: Giỏ hàng */}
+            <div className="relative z-[2] text-center w-[80px]">
               <div className="w-[12px] h-[12px] md:w-[16px] md:h-[16px] mx-auto rounded-full bg-[#222] mb-[5px] md:mb-[10px] relative z-10"></div>
               <span className="text-[12px] md:text-[14px] whitespace-nowrap text-[#333] relative z-10 bg-white px-1">Giỏ hàng</span>
             </div>
-            <div className="relative z-[2] text-center w-[100px]">
+            
+            {/* Step 2: Đặt hàng */}
+            <div className="relative z-[2] text-center w-[80px]">
               <div className="w-[12px] h-[12px] md:w-[16px] md:h-[16px] mx-auto rounded-full bg-[#222] mb-[5px] md:mb-[10px] relative z-10"></div>
               <span className="text-[12px] md:text-[14px] whitespace-nowrap text-[#333] relative z-10 bg-white px-1">Đặt hàng</span>
             </div>
-            <div className="relative z-[2] text-center w-[100px]">
+            
+            {/* Step 3: Thanh toán */}
+            <div className="relative z-[2] text-center w-[80px]">
               <div className="w-[12px] h-[12px] md:w-[16px] md:h-[16px] mx-auto rounded-full bg-[#222] mb-[5px] md:mb-[10px] relative z-10"></div>
-              <span className="text-[12px] md:text-[14px] whitespace-nowrap text-[#333] relative z-10 bg-white px-1">Hoàn thành đơn</span>
+              <span className="text-[12px] md:text-[14px] whitespace-nowrap text-[#333] relative z-10 bg-white px-1">Thanh toán</span>
+            </div>
+
+            {/* Step 4: Hoàn thành đơn */}
+            <div className="relative z-[2] text-center w-[80px]">
+              <div className="w-[12px] h-[12px] md:w-[16px] md:h-[16px] mx-auto rounded-full bg-[#222] mb-[5px] md:mb-[10px] relative z-10"></div>
+              <span className="text-[12px] md:text-[14px] whitespace-nowrap text-[#333] relative z-10 bg-white px-1 flex flex-col leading-[1.2]">
+                <span>Hoàn thành</span>
+                <span>đơn</span>
+              </span>
             </div>
           </div>
         </div>
@@ -96,7 +111,7 @@ export default function OrderSuccessPage() {
             <Link href="/" className="inline-flex justify-center items-center py-[15px] px-[40px] text-center font-bold text-[14px] tracking-[1px] uppercase bg-white text-[#222] border border-[#222] rounded-tl-[20px] rounded-br-[20px] hover:bg-[#f9f9f9] transition-colors">
               TIẾP TỤC MUA SẮM
             </Link>
-            <Link href="/user/orders" className="inline-flex justify-center items-center py-[15px] px-[40px] text-center font-bold text-[14px] tracking-[1px] uppercase bg-[#222] text-white border border-[#222] rounded-tl-[20px] rounded-br-[20px] hover:bg-black transition-colors">
+            <Link href="/account/orders" className="inline-flex justify-center items-center py-[15px] px-[40px] text-center font-bold text-[14px] tracking-[1px] uppercase bg-[#222] text-white border border-[#222] rounded-tl-[20px] rounded-br-[20px] hover:bg-black transition-colors">
               XEM ĐƠN HÀNG
             </Link>
           </div>

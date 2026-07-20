@@ -45,6 +45,7 @@ export default function AccountSidebar() {
     { name: 'Sổ địa chỉ', path: '/account/addresses', icon: 'fas fa-map-marker-alt' },
     { name: 'Sản phẩm đã xem', path: '/account/recently-viewed', icon: 'fas fa-glasses' },
     { name: 'Sản phẩm yêu thích', path: '/account/wishlist', icon: 'far fa-heart' },
+    { name: 'Điểm thưởng (Loyalty)', path: '/account/loyalty', icon: 'fas fa-gift' },
     { name: 'Hỏi đáp sản phẩm', path: '/account/faq', icon: 'fas fa-headset' },
     { name: 'Hỗ trợ - LUXE', path: '/account/support', icon: 'far fa-hand-point-right' },
   ];

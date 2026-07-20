@@ -44,7 +44,7 @@ export default function FilterSidebar() {
   };
 
   return (
-    <form className="w-full">
+    <form className="w-full" onSubmit={(e) => e.preventDefault()}>
       {/* Size Filter */}
       <div className="filter-group">
         <div 

@@ -93,7 +93,7 @@ export default function ContactPage() {
               We are here to help and answer any question you might have. Tell us about your issue so we can help you more quickly. We look forward to hearing from you.
             </p>
 
-            <form>
+            <form onSubmit={(e) => { e.preventDefault(); alert("Tin nhắn của bạn đã được gửi!"); }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
                 {/* Unauthenticated fields */}
                 {!isAuthenticated && (

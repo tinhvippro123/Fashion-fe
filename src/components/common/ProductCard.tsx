@@ -31,9 +31,18 @@ export interface Product {
 interface ProductCardProps {
   product: Product;
   isLiked?: boolean;
+  isFlashSale?: boolean;
+  soldQuantity?: number;
+  totalQuantity?: number;
 }
 
-export default function ProductCard({ product, isLiked = false }: ProductCardProps) {
+export default function ProductCard({ 
+  product, 
+  isLiked = false,
+  isFlashSale = false,
+  soldQuantity = 85,
+  totalQuantity = 100
+}: ProductCardProps) {
   const [activeColorId, setActiveColorId] = useState<number | null>(
     product.productColors && product.productColors.length > 0
       ? product.productColors[0].id
@@ -97,7 +106,10 @@ export default function ProductCard({ product, isLiked = false }: ProductCardPro
       )}
 
       {product.discountPercent && product.discountPercent > 0 ? (
-        <div className="absolute top-[10px] right-[10px] z-[10] bg-[#f7941d] text-white text-[12px] font-bold w-[35px] h-[35px] rounded-full flex items-center justify-center">
+        <div 
+          className="absolute top-[10px] right-[10px] z-[10] bg-[#da251d] text-white text-[13px] font-bold w-[40px] h-[40px] flex items-center justify-center shadow-md"
+          style={{ borderRadius: '50% 50% 0 50%' }}
+        >
           -{product.discountPercent}%
         </div>
       ) : null}
@@ -164,9 +176,22 @@ export default function ProductCard({ product, isLiked = false }: ProductCardPro
         </div>
 
         {/* Price & Bag Bottom Row */}
-        <div className="relative flex justify-between items-center">
-          <div className="text-[#000] font-bold text-[16px]">
-            {formatPrice(product.basePrice)}
+        <div className="relative flex justify-between items-center mb-[8px]">
+          <div className="flex items-center gap-[10px]">
+            {product.discountPercent ? (
+              <>
+                <span className="text-[16px] font-bold text-[#e10600]">
+                  {formatPrice(product.basePrice * (1 - (product.discountPercent || 0) / 100))}đ
+                </span>
+                <span className="text-[14px] text-[#999] line-through">
+                  {formatPrice(product.basePrice)}đ
+                </span>
+              </>
+            ) : (
+              <span className="text-[16px] font-bold text-[#000]">
+                {formatPrice(product.basePrice)}đ
+              </span>
+            )}
           </div>
           <button 
             onClick={() => setIsQuickSizeOpen(!isQuickSizeOpen)}
@@ -202,6 +227,45 @@ export default function ProductCard({ product, isLiked = false }: ProductCardPro
             </div>
           )}
         </div>
+
+        {/* Flash Sale Progress Bar - Full Width Below Price */}
+        {isFlashSale && (
+          <div className="w-full">
+            <div className="flex justify-between items-center mb-[6px]">
+              {(() => {
+                const percent = (soldQuantity / totalQuantity) * 100;
+                if (percent >= 90) {
+                  return (
+                    <span className="text-[11px] text-[#e10600] font-bold flex items-center gap-[4px] uppercase tracking-wider">
+                      <i className="fas fa-fire text-[#ff9900] animate-pulse"></i> Sắp hết
+                    </span>
+                  );
+                } else if (percent >= 50) {
+                  return (
+                    <span className="text-[11px] text-[#ff6600] font-bold flex items-center gap-[4px] uppercase tracking-wider">
+                      <i className="fas fa-bolt text-[#ff9900]"></i> Bán chạy
+                    </span>
+                  );
+                } else {
+                  return (
+                    <span className="text-[11px] text-[#0088cc] font-bold flex items-center gap-[4px] uppercase tracking-wider">
+                      Đang mở bán
+                    </span>
+                  );
+                }
+              })()}
+              <span className="text-[11px] text-[#666] font-medium">
+                Đã bán {soldQuantity}
+              </span>
+            </div>
+            <div className="h-[6px] bg-[#eeeeee] rounded-full overflow-hidden relative">
+              <div 
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#e10600] to-[#ff4d4d] rounded-full transition-all duration-1000 ease-out"
+                style={{ width: `${(soldQuantity / totalQuantity) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import HomeSlider from '@/components/home/HomeSlider';
 import ProductSlider from '@/components/home/ProductSlider';
-import { Product } from '@/components/common/ProductCard';
+import ProductCard, { Product } from '@/components/common/ProductCard';
 
 // Helper to generate mock data matching Product interface
 const generateMockProducts = (prefix: string, count: number, images: string[]): Product[] => {
@@ -46,12 +46,89 @@ const menImages = [
 const mockWomenProducts = generateMockProducts("Nữ -", 8, womenImages);
 const mockMenProducts = generateMockProducts("Nam -", 8, menImages);
 
+// Flash Sale Mock Data
+const mockFlashSaleProducts = generateMockProducts("Flash Sale -", 4, womenImages).map((p, idx) => ({
+  ...p,
+  isNew: false,
+  isBestSeller: false,
+  discountPercent: 30 + (idx * 10), // 30%, 40%, 50%, 60%
+}));
+
+const MOCK_HOME_BLOGS = [
+  {
+    id: 1,
+    slug: 'xu-huong-thoi-trang-thu-dong-2026',
+    title: 'Xu hướng thời trang Thu Đông 2026: Sự trở lại của Minimalism',
+    excerpt: 'Phong cách tối giản (Minimalism) đang quay trở lại mạnh mẽ trong bộ sưu tập Thu Đông năm nay. Hãy cùng khám phá...',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop',
+    date: '20/07/2026'
+  },
+  {
+    id: 2,
+    slug: 'cach-phoi-do-voi-ao-blazer-nu',
+    title: '5 Cách phối đồ với áo Blazer nữ chuẩn thanh lịch chốn công sở',
+    excerpt: 'Áo blazer là item không thể thiếu trong tủ đồ của các quý cô công sở. Bài viết này sẽ mách bạn 5 cách mix&match ấn tượng...',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop',
+    date: '18/07/2026'
+  },
+  {
+    id: 3,
+    slug: 'bao-quan-do-da-dung-cach',
+    title: 'Bí quyết bảo quản đồ da luôn bền đẹp như mới',
+    excerpt: 'Đồ da mang lại vẻ sang trọng nhưng lại đòi hỏi sự chăm sóc kỹ lưỡng. Đừng bỏ lỡ những mẹo vệ sinh và bảo quản cực dễ...',
+    image: 'https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=800&auto=format&fit=crop',
+    date: '15/07/2026'
+  }
+];
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'women' | 'men'>('women');
+
+  // Simple countdown logic for visual (mock)
+  const [timeLeft, setTimeLeft] = useState({ hours: 12, minutes: 34, seconds: 56 });
 
   return (
     <>
       <HomeSlider />
+
+      {/* FLASH SALE SECTION */}
+      <div className="w-full min-[1200px]:px-[85px] px-[15px] mx-auto mt-[40px]">
+        <div className="bg-white rounded-lg p-[20px] md:p-[30px] border border-[#e10600]/20 relative overflow-hidden">
+          {/* Decorative element */}
+          <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-[#f7941d]/10 rounded-bl-full -z-0"></div>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center mb-[20px] relative z-10">
+            <div className="flex items-center gap-4 mb-4 md:mb-0">
+              <h3 className="text-[28px] font-bold text-[#e10600] italic flex items-center gap-2 uppercase tracking-wide">
+                <i className="fas fa-bolt"></i>
+                Flash Sale
+              </h3>
+              <div className="flex gap-2">
+                <div className="bg-[#e10600] text-white font-bold text-[18px] w-[40px] h-[40px] flex items-center justify-center rounded">
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </div>
+                <span className="text-[#e10600] font-bold text-[24px]">:</span>
+                <div className="bg-[#e10600] text-white font-bold text-[18px] w-[40px] h-[40px] flex items-center justify-center rounded">
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </div>
+                <span className="text-[#e10600] font-bold text-[24px]">:</span>
+                <div className="bg-[#e10600] text-white font-bold text-[18px] w-[40px] h-[40px] flex items-center justify-center rounded">
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </div>
+              </div>
+            </div>
+            <Link href="/flash-sale" className="text-[#333] hover:text-[#e10600] font-medium transition-colors flex items-center gap-1">
+              Xem tất cả <i className="fas fa-chevron-right text-[12px]"></i>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] md:gap-[30px] relative z-10">
+            {mockFlashSaleProducts.map(product => (
+              <ProductCard key={`fs-${product.id}`} product={product} />
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* NEW ARRIVAL SECTION */}
       {/* .container-luxe style="margin-top: 30px;" */}
@@ -119,9 +196,59 @@ export default function Home() {
             </div>
           )}
         </div>
-
       </div>
 
+      {/* BLOGS SECTION */}
+      <div className="w-full min-[1200px]:px-[85px] px-[15px] mx-auto mt-[60px] mb-[60px]">
+        <div className="text-center mb-[30px]">
+          <h3 className="text-[32px] font-bold uppercase tracking-[3px] text-[#000] mb-[10px]">
+            LUXE BLOG
+          </h3>
+          <p className="text-[#6c757d]">Cập nhật tin tức & xu hướng thời trang mới nhất</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+          {MOCK_HOME_BLOGS.map((blog) => (
+            <article key={blog.id} className="group">
+              <Link href={`/blogs/${blog.slug}`} className="block relative aspect-[4/3] overflow-hidden rounded-[8px] mb-[15px]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={blog.image} 
+                  alt={blog.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </Link>
+              <div>
+                <div className="text-[12px] text-[#999] mb-[5px] uppercase tracking-wider">
+                  <i className="far fa-calendar-alt mr-1"></i> {blog.date}
+                </div>
+                <h4 className="text-[18px] font-bold text-[#000] mb-[10px] leading-tight line-clamp-2">
+                  <Link href={`/blogs/${blog.slug}`} className="hover:text-[#f7941d] transition-colors">
+                    {blog.title}
+                  </Link>
+                </h4>
+                <p className="text-[#666] text-[14px] line-clamp-2 mb-[15px]">
+                  {blog.excerpt}
+                </p>
+                <Link 
+                  href={`/blogs/${blog.slug}`}
+                  className="text-[#000] font-bold text-[13px] uppercase border-b-[2px] border-[#000] pb-[2px] hover:text-[#f7941d] hover:border-[#f7941d] transition-all"
+                >
+                  Đọc tiếp
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="text-center mt-[40px]">
+          <Link 
+            href="/blogs" 
+            className="inline-block px-[40px] py-[12px] bg-white border border-[#333] text-[#333] font-normal text-[14px] uppercase tracking-[1px] no-underline rounded-tl-[20px] rounded-br-[20px] transition-all duration-300 hover:bg-[#000] hover:border-[#000] hover:text-white"
+          >
+            Xem tất cả bài viết
+          </Link>
+        </div>
+      </div>
     </>
   );
 }

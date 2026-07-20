@@ -119,7 +119,7 @@ export default function ProductGrid({ title, currentPage }: ProductGridProps) {
             </button>
             
             {/* Dropdown Menu */}
-            <div className={`absolute top-full left-0 w-full bg-white border border-[#e5e5e5] rounded-[10px] mt-[5px] z-10 shadow-sm overflow-hidden transition-all duration-200 ${isSortOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-[10px]'}`}>
+            <div className={`absolute top-full left-0 w-full bg-white border border-[#e5e5e5] rounded-[10px] mt-[5px] z-50 shadow-sm overflow-hidden transition-all duration-200 ${isSortOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-[10px]'}`}>
               {sortOptions.map(option => (
                 <div 
                   key={option.value}

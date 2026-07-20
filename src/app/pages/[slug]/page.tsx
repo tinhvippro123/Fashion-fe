@@ -8,6 +8,7 @@ const PAGES = [
   { slug: 'chinh-sach-doi-tra', title: 'Chính sách đổi trả', content: '<h2>Chính sách đổi trả</h2><p>Hỗ trợ đổi trả trong vòng 7 ngày kể từ ngày nhận hàng với điều kiện sản phẩm còn nguyên tem mác, chưa qua sử dụng.</p>' },
   { slug: 'chinh-sach-bao-mat', title: 'Chính sách bảo mật', content: '<h2>Chính sách bảo mật</h2><p>LUXE Fashion cam kết bảo mật tuyệt đối thông tin cá nhân của khách hàng theo quy định của pháp luật.</p>' },
   { slug: 'dieu-khoan-dich-vu', title: 'Điều khoản dịch vụ', content: '<h2>Điều khoản dịch vụ</h2><p>Bằng việc truy cập và mua sắm tại website LUXE Fashion, quý khách đồng ý với các điều khoản dịch vụ của chúng tôi.</p>' },
+  { slug: 'he-thong-cua-hang', title: 'Hệ thống cửa hàng', content: '<h2>Hệ thống cửa hàng LUXE</h2><p>Hiện tại LUXE Fashion có hơn 50 cửa hàng trên toàn quốc. Để tìm cửa hàng gần nhất, vui lòng liên hệ hotline 1900 1234.</p>' },
 ];
 
 export default function StaticPage({ params }: { params: Promise<{ slug: string }> }) {

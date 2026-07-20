@@ -63,7 +63,7 @@ export default function FAQPage() {
           Q&A
         </h5>
         <Link 
-          href="/account/support" 
+          href="/account/faq/create" 
           className="bg-[#222] text-white px-[24px] py-[8px] flex items-center text-[14px] font-medium transition-colors hover:bg-white hover:text-[#222] border border-[#222]"
           style={{ borderRadius: '20px 0 20px 0', letterSpacing: '0.5px' }}
         >

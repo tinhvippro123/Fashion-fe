@@ -144,7 +144,7 @@ export default function Footer() {
             {/* Newsletter Box: matching IVY moda exactly */}
             <div className="border-[5px] border-[#f2f2f2] px-[22px] py-[25px] rounded-tl-[40px] rounded-br-[40px] bg-white box-border">
               <h6 className="text-[20px] leading-[1.5] mb-[20px] font-semibold text-[#333]">Nhận thông tin các chương trình của LUXE fashion</h6>
-              <form>
+              <form onSubmit={(e) => { e.preventDefault(); alert("Đăng ký nhận bản tin thành công!"); }}>
                 <div className="flex items-center">
                   {/* Input: border-none, border-bottom 1px solid #999, flex:1 */}
                   <div className="flex-1 border-b border-[#999] mr-[10px]">

@@ -53,7 +53,7 @@ export default function LoginPage() {
                       <input type="checkbox" id="rememberMe" className="w-[16px] h-[16px] mr-[10px] cursor-pointer border-[#e1e1e1] rounded-[4px]" />
                       <label htmlFor="rememberMe" className="text-[#6c6d70] cursor-pointer text-[15px]">Ghi nhớ đăng nhập</label>
                     </div>
-                    <Link href="#" className="text-[#6c6d70] underline underline-offset-4 hover:text-[#222] transition-colors text-[15px]">
+                    <Link href="/forgot-password" className="text-[#6c6d70] underline underline-offset-4 hover:text-[#222] transition-colors text-[15px]">
                       Quên mật khẩu?
                     </Link>
                   </div>

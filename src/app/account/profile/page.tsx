@@ -212,7 +212,7 @@ export default function ProfilePage() {
                   <label className="text-[12px] text-[#6c6d70] font-bold block mb-[8px]">Nhập lại Mật khẩu mới</label>
                   <input type="password" required className="w-full h-[40px] px-[15px] border border-[#e7e8e9] rounded-[4px] text-[14px] outline-none focus:border-[#222] transition-colors" />
                 </div>
-                <button type="submit" className="w-full bg-[#222] text-white font-bold py-[12px] rounded-tl-[4px] rounded-br-[4px] hover:bg-white hover:text-[#222] border border-[#222] transition-colors uppercase text-[15px]">
+                <button type="submit" className="w-full bg-[#222] text-white font-bold py-[12px] rounded-tl-[20px] rounded-br-[20px] hover:bg-white hover:text-[#222] border border-[#222] transition-colors uppercase text-[15px]">
                   Cập nhật
                 </button>
               </form>

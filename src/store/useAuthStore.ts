@@ -8,6 +8,7 @@ export interface User {
   phone: string;
   isAdmin: boolean;
   avatar?: string;
+  address?: string;
 }
 
 interface AuthState {
