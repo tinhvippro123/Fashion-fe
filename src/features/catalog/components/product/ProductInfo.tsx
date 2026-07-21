@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProductDetail, ProductColor } from '@/types/product';
+import { ProductDetail, ProductColor } from '@/features/catalog/types/product';
 import SizeGuideModal from './SizeGuideModal';
-import { useCartStore } from '@/store/useCartStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 import { toast } from 'react-toastify';
 
 interface ProductInfoProps {

@@ -1,4 +1,4 @@
-import CartDetail from '@/components/cart/CartDetail';
+import CartDetail from '@/features/cart-and-order/components/cart/CartDetail';
 
 export const metadata = {
   title: 'Giỏ hàng | Luxe Fashion',

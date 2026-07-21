@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCartStore } from '@/store/useCartStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function CheckoutPage() {
   const router = useRouter();

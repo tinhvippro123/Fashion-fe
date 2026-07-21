@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { mockProductDetail } from '@/types/product';
-import ProductDetailClient from '@/components/product/ProductDetailClient';
-import SizeGuideModal from '@/components/product/SizeGuideModal';
+import { mockProductDetail } from '@/features/catalog/types/product';
+import ProductDetailClient from '@/features/catalog/components/product/ProductDetailClient';
+import SizeGuideModal from '@/features/catalog/components/product/SizeGuideModal';
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -41,7 +41,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       </div>
 
       {/* Modals */}
-      <SizeGuideModal />
+      {/* <SizeGuideModal /> */}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import { useCartStore } from '@/store/useCartStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
 import Link from 'next/link';
-import { formatPrice } from '@/utils/format';
+import { formatPrice } from '@/shared/utils/format';
 
 export default function CartDetail() {
   const { items, totalItems, totalPrice, updateQuantity, removeItem } = useCartStore();

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import FilterSidebar from '@/components/category/FilterSidebar';
-import ProductGrid from '@/components/category/ProductGrid';
+import FilterSidebar from '@/features/catalog/components/category/FilterSidebar';
+import ProductGrid from '@/features/catalog/components/category/ProductGrid';
 
 export default async function CategoryPage({ 
   params,

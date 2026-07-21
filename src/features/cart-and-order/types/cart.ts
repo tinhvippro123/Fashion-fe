@@ -1,4 +1,4 @@
-import { ProductDetail, ProductColor, ProductVariant } from './product';
+import { ProductDetail, ProductColor, ProductVariant } from '@/features/catalog/types/product';
 
 export interface CartItem {
   id: string;

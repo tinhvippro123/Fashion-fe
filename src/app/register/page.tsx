@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function RegisterPage() {
   const router = useRouter();

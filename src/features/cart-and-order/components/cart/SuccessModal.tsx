@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartStore } from '@/store/useCartStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
 
 export default function SuccessModal() {
   const { isSuccessModalOpen } = useCartStore();

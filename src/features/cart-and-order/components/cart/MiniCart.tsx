@@ -1,9 +1,9 @@
 'use client';
 
-import { useCartStore } from '@/store/useCartStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 import Link from 'next/link';
-import { formatPrice } from '@/utils/format';
+import { formatPrice } from '@/shared/utils/format';
 
 export default function MiniCart() {
   const { isMiniCartOpen, toggleMiniCart, items, totalItems, totalPrice, updateQuantity, removeItem } = useCartStore();

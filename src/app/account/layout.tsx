@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import AccountSidebar from '@/components/account/AccountSidebar';
-import { useAuthStore } from '@/store/useAuthStore';
+import AccountSidebar from '@/features/users/components/account/AccountSidebar';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function AccountLayout({
   children,

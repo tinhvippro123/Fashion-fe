@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import ProductCard, { Product } from '@/components/common/ProductCard';
-import FilterSidebar from '@/components/category/FilterSidebar';
+import ProductCard, { Product } from '@/shared/ui/ProductCard';
+import FilterSidebar from '@/features/catalog/components/category/FilterSidebar';
 
 const womenImages = [
   '28bb2cb0-7872-451d-8f8f-612541408673.jpg',

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ProductColor } from '@/types/product';
+import { ProductColor } from '@/features/catalog/types/product';
 
 interface ProductGalleryProps {
   selectedColor: ProductColor;

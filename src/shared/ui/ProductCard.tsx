@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useCartStore } from '@/store/useCartStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 import { toast } from 'react-toastify';
-import { ProductDetail, ProductColor as FullProductColor, ProductVariant } from '@/types/product';
+import { ProductDetail, ProductColor as FullProductColor, ProductVariant } from '@/features/catalog/types/product';
 
 interface ProductImage {
   imageUrl: string;

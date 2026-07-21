@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import ProductCard, { Product } from '@/components/common/ProductCard';
+import ProductCard, { Product } from '@/shared/ui/ProductCard';
 
 export default function WishlistPage() {
   // Mock Data

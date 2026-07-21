@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function ContactPage() {
   const { isAuthenticated } = useAuthStore();

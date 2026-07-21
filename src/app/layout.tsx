@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import MiniCart from "@/components/cart/MiniCart";
-import SuccessModal from "@/components/cart/SuccessModal";
+import Header from "@/shared/layouts/Header";
+import Footer from "@/shared/layouts/Footer";
+import MiniCart from "@/features/cart-and-order/components/cart/MiniCart";
+import SuccessModal from "@/features/cart-and-order/components/cart/SuccessModal";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

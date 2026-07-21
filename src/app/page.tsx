@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import HomeSlider from '@/components/home/HomeSlider';
-import ProductSlider from '@/components/home/ProductSlider';
-import ProductCard, { Product } from '@/components/common/ProductCard';
+import HomeSlider from '@/features/catalog/components/home/HomeSlider';
+import ProductSlider from '@/features/catalog/components/home/ProductSlider';
+import ProductCard, { Product } from '@/shared/ui/ProductCard';
 
 // Helper to generate mock data matching Product interface
 const generateMockProducts = (prefix: string, count: number, images: string[]): Product[] => {

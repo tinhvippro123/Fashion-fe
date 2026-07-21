@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import ProductCard, { Product } from '@/components/common/ProductCard';
-import Pagination from '@/components/common/Pagination';
+import ProductCard, { Product } from '@/shared/ui/ProductCard';
+import Pagination from '@/shared/ui/Pagination';
 
 interface ProductGridProps {
   title: string;

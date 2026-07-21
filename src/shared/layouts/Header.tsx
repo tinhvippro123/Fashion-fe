@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { useCartStore } from '@/store/useCartStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
+import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

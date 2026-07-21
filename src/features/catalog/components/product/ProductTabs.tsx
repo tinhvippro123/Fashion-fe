@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ProductDetail } from '@/types/product';
+import { ProductDetail } from '@/features/catalog/types/product';
 
 interface ProductTabsProps {
   product: ProductDetail;
