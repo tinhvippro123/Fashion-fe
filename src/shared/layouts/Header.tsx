@@ -6,6 +6,7 @@ import { useCartStore } from '@/features/cart-and-order/stores/cart.store';
 import { useAuthStore } from '@/features/users/stores/auth.store';
 
 export default function Header() {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuthStore();
@@ -68,7 +69,7 @@ export default function Header() {
                   <Link href="/danh-muc/nu" className="block font-bold mb-3 text-[#333] text-[14px] hover:text-[#000] uppercase transition-colors">
                     ALL ITEMS
                   </Link>
-                  <Link href="/sale" className="block font-bold text-[#ff0000] text-[14px] hover:text-[#000] uppercase transition-colors">
+                  <Link href="/flash-sale" className="block font-bold text-[#ff0000] text-[14px] hover:text-[#000] uppercase transition-colors">
                     HOT ITEMS - SALE 50%
                   </Link>
                 </div>
@@ -302,13 +303,13 @@ export default function Header() {
 
             <li>
               <div className="flex justify-between items-center mb-4">
-                <Link href="/sale" className="text-[#ff0000] font-bold block w-full text-[14px] no-underline uppercase animate-pulse">SUMMER SPECIAL – ƯU ĐÃI TỪ 150K</Link>
+                <Link href="/flash-sale" className="text-[#ff0000] font-bold block w-full text-[14px] no-underline uppercase animate-pulse">SUMMER SPECIAL – ƯU ĐÃI TỪ 150K</Link>
                 <span className="text-[#ff0000] text-[22px] font-light leading-none">+</span>
               </div>
             </li>
             <li>
               <div className="flex justify-between items-center mb-4">
-                <Link href="/collection" className="text-[#333] font-bold block w-full text-[14px] no-underline uppercase">BỘ SƯU TẬP</Link>
+                <Link href="/danh-muc" className="text-[#333] font-bold block w-full text-[14px] no-underline uppercase">BỘ SƯU TẬP</Link>
                 <span className="text-[#6c757d] text-[22px] font-light leading-none">+</span>
               </div>
             </li>
@@ -320,7 +321,7 @@ export default function Header() {
             </li>
             <li className="pb-4">
               <div className="flex justify-between items-center mb-4">
-                <Link href="/about" className="text-[#333] font-bold block w-full text-[14px] no-underline uppercase">VỀ CHÚNG TÔI</Link>
+                <Link href="/pages/ve-chung-toi" className="text-[#333] font-bold block w-full text-[14px] no-underline uppercase">VỀ CHÚNG TÔI</Link>
                 <span className="text-[#6c757d] text-[22px] font-light leading-none">+</span>
               </div>
             </li>
